@@ -1,0 +1,44 @@
+﻿@model IEnumerable<AppReportes.Clases.PaginaCLS>
+@using AppReportes.Clases;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdPagina)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mensaje)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Controlador)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdPagina)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mensaje)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Accion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Controlador)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

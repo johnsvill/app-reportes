@@ -1,0 +1,50 @@
+﻿
+@model IEnumerable<AppReportes.Clases.SedeCLS>
+
+@{
+    ViewData["Title"] = "Index";
+    string nombreSede = ViewBag.NombreSede;
+}
+
+@*Filtro sensitivo*@
+<form id="frmEnviar" asp-controller="Sede" asp-action="Index" class="mb-2" method="post">
+    <label>Ingrese nombre de sede</label>
+    <input type="text" class="form form-control" name="NombreSede" 
+           onkeyup="Buscar()" value="@nombreSede"/>
+</form>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(x => x.IdSede)
+            </th>
+            <th>
+                @Html.DisplayNameFor(x => x.NombreSede)
+            </th>
+            <th>
+                @Html.DisplayNameFor(x => x.Direccion)
+            </th>                  
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdSede)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreSede)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    function Buscar() {
+        document.getElementById("frmEnviar").submit();
+    }
+</script>

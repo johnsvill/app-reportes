@@ -1,0 +1,42 @@
+﻿@using AppReportes.Clases;
+@model IEnumerable<EspecialidadCLS>
+@{
+    ViewData["Title"] = "Index";
+    string nombreEspecialidad = ViewBag.NombreEspecialidad;
+}
+
+    <form asp-controller="Especialidad" asp-action="Index" method="post" class=" mb-2"
+          style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr" id="frmFormulario">
+        @*Filtro*@
+        <label>Ingrese nombre de especialidad</label>
+        <input type="text" id="nombre" class="form form-control" name="Nombre" value="@nombreEspecialidad" />
+        <input type="submit" value="Buscar" class="btn btn-info" />
+        <input type="button" value="Limpiar" class="btn btn-danger" onclick="Limpiar()" />
+    </form>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(x => x.IdEspecialidad)</th>
+                <th>@Html.DisplayNameFor(x => x.Nombre)</th>
+                <th>@Html.DisplayNameFor(x => x.Descripcion)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (EspecialidadCLS oEspecialidad in Model)
+            {
+                <tr>
+                    <td>@oEspecialidad.IdEspecialidad</td>
+                    <td>@oEspecialidad.Nombre</td>
+                    <td>@oEspecialidad.Descripcion</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+<script>
+    function Limpiar() {
+        document.getElementById("nombre").value = "";
+        document.getElementById("frmFormulario").submit();
+    }   
+</script>
+

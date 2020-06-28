@@ -1,0 +1,49 @@
+﻿@model IEnumerable<AppReportes.Clases.MedicamentoCLS>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <table class="table">
+        <thead class=" thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdMedicamento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Precio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NombreFormaFarmaceutica)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Stock)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdMedicamento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombreFormaFarmaceutica)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Stock)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

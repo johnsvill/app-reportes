@@ -1,0 +1,44 @@
+﻿@using AppReportes.Clases;
+@model IEnumerable<PersonaCLS>
+
+@{
+    ViewData["Title"] = "Index";
+    List<SelectListItem> listaSexo = ViewBag.ListaSexo;
+}
+
+    <form id="frmEnviar" asp-controller="Persona" asp-action="Index" method="post"
+          style="display:grid; grid-template-columns: 1fr 2fr 1fr 1fr">
+        <label>Ingrese sexo</label>
+        @Html.DropDownList("IdSexo", listaSexo, new { @class = "form form-control" })
+        <input type="submit" class="btn btn-primary" value="Buscar" />
+        <input type="button" class="btn btn-danger" value="limpiar" onclick="Limpiar()"/>
+    </form>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(x => x.IdPersona)</th>
+                <th>@Html.DisplayNameFor(x => x.NombreCompleto)</th>
+                <th>@Html.DisplayNameFor(x => x.Email)</th>
+                <th>@Html.DisplayNameFor(x => x.NombreSexo)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (PersonaCLS oPersonaCLS in Model)
+            {
+                <tr>
+                    <td>@oPersonaCLS.IdPersona</td>
+                    <td>@oPersonaCLS.NombreCompleto</td>
+                    <td>@oPersonaCLS.Email</td>
+                    <td>@oPersonaCLS.NombreSexo</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+<script>
+    function Limpiar() {
+        document.getElementById("IdSexo").value = "";
+        document.getElementById("frmEnviar").submit();
+    }
+</script>
+
