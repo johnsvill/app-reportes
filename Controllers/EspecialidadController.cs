@@ -43,5 +43,41 @@ namespace AppReportes.Controllers
             }   
             return View(listaEspecialidad);
         } 
+
+        public IActionResult Agregar()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Agregar(EspecialidadCLS especialidadCLS)
+        {
+            try
+            {
+                using(BDHospitalContext db = new BDHospitalContext())
+                {
+                    if(!ModelState.IsValid)
+                    {
+                        return View(especialidadCLS);
+                    }
+                    else
+                    {
+                        Especialidad objeto = new Especialidad
+                        {
+                            Nombre = especialidadCLS.Nombre,
+                            Descripcion = especialidadCLS.Descripcion,
+                            Bhabilitado = 1
+                        };
+                        db.Especialidad.Add(objeto);
+                        db.SaveChanges();
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                return View(especialidadCLS);
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -432,3 +432,6 @@ C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\obj\Debug\netcorea
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\obj\Debug\netcoreapp3.1\Razor\Views\Sede\Index.cshtml.g.cs
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\obj\Debug\netcoreapp3.1\Razor\Views\Pagina\Index.cshtml.g.cs
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\obj\Debug\netcoreapp3.1\Razor\Views\Medicamento\Index.cshtml.g.cs
+C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\obj\Debug\netcoreapp3.1\Razor\Views\TipoUsuario\Index.cshtml.g.cs
+C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\obj\Debug\netcoreapp3.1\Razor\Views\Especialidad\Agregar.cshtml.g.cs
+C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\obj\Debug\netcoreapp3.1\Razor\Views\Medicamento\Agregar.cshtml.g.cs

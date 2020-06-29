@@ -7,11 +7,11 @@
 }
 
     <form id="frmEnviar" asp-controller="Persona" asp-action="Index" method="post"
-          style="display:grid; grid-template-columns: 1fr 2fr 1fr 1fr">
+          style="display:grid; grid-template-columns: 1fr 2fr 1fr 1fr" class="mb-2">
         <label>Ingrese sexo</label>
         @Html.DropDownList("IdSexo", listaSexo, new { @class = "form form-control" })
         <input type="submit" class="btn btn-primary" value="Buscar" />
-        <input type="button" class="btn btn-danger" value="limpiar" onclick="Limpiar()"/>
+        <input type="button" class="btn btn-danger" value="Limpiar" onclick="Limpiar()"/>
     </form>
 
     <table class="table">

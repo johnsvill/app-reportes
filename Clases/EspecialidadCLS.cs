@@ -11,8 +11,10 @@ namespace AppReportes.Clases
         [Display(Name ="Id de especialidad")]
         public int IdEspecialidad { get; set; }
         [Display(Name = "Nombre de especialidad")]
+        [Required(ErrorMessage ="Ingrese nombre de la especialidad")]
         public string Nombre { get; set; }
         [Display(Name = "Descripción")]
+        [Required(ErrorMessage = "Ingrese la descripción de la especialidad")]
         public string Descripcion { get; set; }    
     }
 }

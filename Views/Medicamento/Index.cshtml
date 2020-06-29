@@ -2,48 +2,65 @@
 
 @{
     ViewData["Title"] = "Index";
+    List<SelectListItem> selectLists = ViewBag.ListaForma;
 }
 
-    <table class="table">
-        <thead class=" thead-dark">
+<a class="btn btn-primary" asp-controller="Medicamento" asp-action="Agregar">
+    <strong>Agregar</strong>
+</a>
+<form style="display:grid; grid-template-columns: 1fr 2fr" class="mb-2" id="frmEnviar">
+    <label>Ingrese nombre de la forma farmaceutica</label>
+    @Html.DropDownList("IdFormaFarmaceutica", selectLists, new { @class = "form form-control" })
+</form>
+
+<table class="table">
+    <thead class=" thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdMedicamento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreFormaFarmaceutica)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stock)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdMedicamento)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Nombre)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Precio)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NombreFormaFarmaceutica)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Stock)
-                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdMedicamento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Precio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreFormaFarmaceutica)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stock)
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdMedicamento)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Precio)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NombreFormaFarmaceutica)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Stock)
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
+<script>
+    var IdFormaFarmaceutica = document.getElementById("IdFormaFarmaceutica");
+    //Todo lo q seleccionas o escribas aqui, lo ejecuta(ComboBox)
+    IdFormaFarmaceutica.onchange = function () {
+
+        document.getElementById("frmEnviar").submit();
+    }
+</script>

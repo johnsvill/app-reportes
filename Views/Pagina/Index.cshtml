@@ -3,7 +3,18 @@
 
 @{
     ViewData["Title"] = "Index";
+    string mensaje = ViewBag.Mensaje;
 }
+
+    <form asp-controller="Pagina" asp-action="Index" method="post" class=" mb-2"
+          style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr" id="frmFormulario">
+        @*Filtro*@
+        <label>Ingrese mensaje</label>
+        <input type="text" id="MensajeDatos" class="form form-control" name="Mensaje" 
+               value="@mensaje" />
+        <input type="submit" value="Buscar" class="btn btn-info" />
+        <input type="button" value="Limpiar" class="btn btn-danger" onclick="Limpiar()" />
+    </form>
 
 <table class="table">
     <thead class="thead-dark">
@@ -42,3 +53,9 @@
         }
     </tbody>
 </table>
+<script>
+    function Limpiar() {
+        document.getElementById("MensajeDatos").value = "";
+        document.getElementById("frmFormulario").submit();
+    }
+</script>

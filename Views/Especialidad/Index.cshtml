@@ -5,6 +5,9 @@
     string nombreEspecialidad = ViewBag.NombreEspecialidad;
 }
 
+    <a class="btn btn-secondary" asp-controller="Especialidad" asp-action="Agregar">
+        <strong>Agregar</strong>
+    </a>
     <form asp-controller="Especialidad" asp-action="Index" method="post" class=" mb-2"
           style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr" id="frmFormulario">
         @*Filtro*@

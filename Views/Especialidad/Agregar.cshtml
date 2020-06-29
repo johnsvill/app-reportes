@@ -1,0 +1,45 @@
+﻿@using AppReportes.Clases;
+@model EspecialidadCLS;
+@{
+    ViewData["Title"] = "Agregar";
+}
+
+<h1>Crear una especialidad</h1>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Agregar" method="post" id="frmEnviar">
+            <div class="form-group">
+                <label asp-for="Nombre"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descripcion"></label>
+                <input asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="button" value="Aceptar" onclick="abrirModal()"
+                       class="btn btn-primary" />
+                <a asp-action="Index" asp-controller="Especialidad"
+                   class="btn btn-danger">
+                    Regresar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="~/js/sweetalert.js"></script>
+<script src="~/js/generic.js"></script>
+<script>
+    function abrirModal() {
+        mostrarModal().then((result) => {
+            if (result.value) {
+                var frmEnviar = document.getElementById("frmEnviar");
+                frmEnviar.submit();
+            }
+        })
+    }
+</script>
+
