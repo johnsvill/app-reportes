@@ -67,7 +67,7 @@ namespace AppReportes.Controllers
                     }
                 }
             }
-            catch(Exception e)
+            catch(Exception)
             {
 
             }

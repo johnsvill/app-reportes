@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using AppReportes.Clases;
 using AppReportes.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using AppReportes.Clases;
 
 namespace AppReportes.Controllers
 {

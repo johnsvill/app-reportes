@@ -45,5 +45,19 @@ namespace AppReportes.Controllers
             }
             return View(listaPagina);  
         }
+
+        [HttpPost]
+        public IActionResult Agregar()
+        {
+            try
+            {
+
+            }
+            catch(Exception)
+            {
+
+            }
+            return View();
+        }
     }
 }
