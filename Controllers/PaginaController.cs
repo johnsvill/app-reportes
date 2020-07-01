@@ -46,18 +46,42 @@ namespace AppReportes.Controllers
             return View(listaPagina);  
         }
 
-        [HttpPost]
+        //Mostrar el formulario
+        [HttpGet]
         public IActionResult Agregar()
+        {
+            return View();
+        }
+
+        //Realiza la inserción de datos
+        [HttpPost]
+        public IActionResult Agregar(PaginaCLS oPaginaCLS)
         {
             try
             {
-
+                using(BDHospitalContext db = new BDHospitalContext())
+                {
+                    if(!ModelState.IsValid)
+                    {
+                        return View(oPaginaCLS);
+                    }
+                    else
+                    {
+                        Pagina oPagina = new Pagina();
+                        oPagina.Mensaje = oPaginaCLS.Mensaje;
+                        oPagina.Controlador = oPaginaCLS.Controlador;
+                        oPagina.Accion = oPaginaCLS.Controlador;
+                        oPagina.Bhabilitado = 1;
+                        db.Pagina.Add(oPagina);
+                        db.SaveChanges();
+                    }                   
+                }
             }
             catch(Exception)
             {
-
+                return View(oPaginaCLS);
             }
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }
