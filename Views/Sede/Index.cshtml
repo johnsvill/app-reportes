@@ -7,43 +7,78 @@
 }
 
 @*Filtro sensitivo*@
+<input type="button" value="Exportar Excel" class=" btn btn-success" onclick="ExportarExcel()" />
+<input type="button" value="Exportar PDF" class=" btn btn-danger" onclick="ExportarPdf()" />
+<input type="button" value="Exportar Word" class=" btn btn-primary" onclick="ExportarWord()" />
+
 <form id="frmEnviar" asp-controller="Sede" asp-action="Index" class="mb-2" method="post">
     <label>Ingrese nombre de sede</label>
-    <input type="text" class="form form-control" name="NombreSede" 
-           onkeyup="Buscar()" value="@nombreSede"/>
+    <input type="text" class="form form-control" name="NombreSede"
+           onkeyup="Buscar()" value="@nombreSede" />
 </form>
-<table class="table">
-    <thead class="thead-dark">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(x => x.IdSede)
-            </th>
-            <th>
-                @Html.DisplayNameFor(x => x.NombreSede)
-            </th>
-            <th>
-                @Html.DisplayNameFor(x => x.Direccion)
-            </th>                  
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+
+<form asp-controller="Sede" asp-action="Exportar" id="frmReporte">
+    <table class="table">
+        <thead class="thead-dark">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdSede)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NombreSede)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Direccion)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(x => x.IdSede)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(x => x.NombreSede)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(x => x.Direccion)
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+            <tr>
+                <th>
+                    <input type="checkbox" name="nombreProp" value="IdSede" />
+                    <input type="hidden" name="tipoReporte" id="tipoReporte" />
+                </th>
+                <th>
+                    <input type="checkbox" name="nombreProp" value="NombreSede" />
+                </th>
+                <th>
+                    <input type="checkbox" name="nombreProp" value="Direccion" />
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdSede)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombreSede)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Direccion)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+
 <script>
+    function ExportarExcel() {
+        document.getElementById("tipoReporte").value = "Excel";
+        var frmReporte = document.getElementById("frmReporte");
+        frmReporte.submit();
+    }
+
+    function ExportarWord() {
+        document.getElementById("tipoReporte").value = "Word";
+    }
+
+    function ExportarPdf() {
+        document.getElementById("tipoReporte").value = "PDF";
+    }
+
     function Buscar() {
         document.getElementById("frmEnviar").submit();
     }

@@ -1,72 +1,76 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AppReportes.Clases;
 using AppReportes.Models;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
-using OfficeOpenXml;
 using cm = System.ComponentModel;
 
 namespace AppReportes.Controllers
 {
-    public class EspecialidadController : Controller
+    public class EspecialidadController : BaseController
     {
         public static List<EspecialidadCLS> lista;
 
-        //Este metodo nos descarga el excel
-        public FileResult ExportarExcel()
+        //Este metodo nos descarga el excel, word y pdf
+        public FileResult Exportar(string[] nombreProp, string tipoReporte)
         {
             //string[] cabeceras = { "ID de especialidad", "Nombre", "Descripcion" };
-            string[] nombreProp = { "IdEspecialidad", "Nombre", "Descripcion" };
-            byte[] buffer = ExportarExcelDatos(nombreProp, lista);   
-            return File(buffer, 
-                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            //string[] nombreProp = { "IdEspecialidad", "Nombre", "Descripcion" };
+            if(tipoReporte == "Excel")
+            {
+                byte[] buffer = ExportarExcelDatos(nombreProp, lista);
+                return File(buffer,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            }else if(tipoReporte == "PDF")
+            {
+                byte[] buffer = ExportarPDFDatos(nombreProp, lista);
+                return File(buffer, "application/pdf");
+            }
+            return null;
         }
 
-        //Este metodo nos genera el array de bytes(Genera el excel)
-        public byte[] ExportarExcelDatos<T>(string[] nombreProp, List<T> lista)
+        public byte[] ExportarPDFDatos<T>(string[] nombreProp, List<T> lista)
         {
-            using(MemoryStream ms =  new MemoryStream())    
+            using(MemoryStream ms = new MemoryStream())
             {
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                using(ExcelPackage ep = new ExcelPackage())
-                {
-                    ep.Workbook.Worksheets.Add("Hoja");
-
-                    ExcelWorksheet ew = ep.Workbook.Worksheets[0];
-                    Dictionary<string, string> diccionario = cm.TypeDescriptor
+                Dictionary<string, string> diccionario = cm.TypeDescriptor
                         .GetProperties(typeof(T))
                         .Cast<cm.PropertyDescriptor>()
                         .ToDictionary(p => p.Name, p => p.DisplayName);
 
-                    for(int i = 0; i < nombreProp.Length; i++)
-                    {
-                        ew.Cells[1, i + 1].Value = diccionario[nombreProp[i]];
-                        ew.Column(i + 1).Width = 50;
-                    }
-                    int fila = 2;
-                    int col = 1;
+                PdfWriter writer = new PdfWriter(ms);
+                using(var pdfDoc = new PdfDocument(writer))
+                {
+                    Document doc = new Document(pdfDoc);
+                    Paragraph c1 = new Paragraph("Reporte en PDF");
+                    c1.SetFontSize(20);
+                    c1.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
+                    doc.Add(c1);
 
-                    foreach(object item  in lista)
+                    //Creamos la tabla
+                    Table table = new Table(nombreProp.Length);
+                    Cell celda;
+
+                    for(int i = 1; i < nombreProp.Length; i++)
                     {
-                        col = 1;
-                        foreach(string propiedad in nombreProp)
-                        {
-                            ew.Cells[fila, col].Value =
-                                item.GetType().GetProperty(propiedad).GetValue(item).ToString();
-                            col++;//Para aumentarle de uno en uno a las filas
-                        }
-                        fila++;//Para aumentarle de uno en uno a las columnas
+                        celda = new Cell();
+                        celda.Add(new Paragraph(diccionario[nombreProp[i]]));
+                        table.AddHeaderCell(celda);
                     }
-                    ep.SaveAs(ms);
-                    byte[] buffer = ms.ToArray();
-                    return buffer;
+                    doc.Add(table);
+                    doc.Close();
+                    writer.Close();
                 }
+                return ms.ToArray();
             }
         }
-                            
+                                  
         public IActionResult Index(EspecialidadCLS especialidadCLS)
         {
             List<EspecialidadCLS> listaEspecialidad = new List<EspecialidadCLS>();

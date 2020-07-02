@@ -8,8 +8,24 @@ using AppReportes.Models;
 
 namespace AppReportes.Controllers
 {
-    public class SedeController : Controller
+    public class SedeController : BaseController
     {
+        public static List<SedeCLS> lista;
+
+        //Este metodo nos descarga el excel, word y pdf
+        public FileResult Exportar(string[] nombreProp, string tipoReporte)
+        {
+            //string[] cabeceras = { "ID de especialidad", "Nombre", "Descripcion" };
+            //string[] nombreProp = { "IdEspecialidad", "Nombre", "Descripcion" };
+            if (tipoReporte == "Excel")
+            {
+                byte[] buffer = ExportarExcelDatos(nombreProp, lista);
+                return File(buffer,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            }
+            return null;
+        }
+
         public IActionResult Index(SedeCLS oSedeCLS)
         {
             List<SedeCLS> listaSedes = new List<SedeCLS>();
@@ -41,6 +57,7 @@ namespace AppReportes.Controllers
                     ViewBag.NombreSede = oSedeCLS.NombreSede;
                 }
             }
+            lista = listaSedes;
             return View(listaSedes);
         }
     }

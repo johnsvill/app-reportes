@@ -57,7 +57,6 @@ C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\bin\Debug\netcorea
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\obj\Debug\netcoreapp3.1\AppReportes.csprojAssemblyReference.cache
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\obj\Debug\netcoreapp3.1\AppReportes.AssemblyInfoInputs.cache
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\obj\Debug\netcoreapp3.1\AppReportes.AssemblyInfo.cs
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\obj\Debug\netcoreapp3.1\AppReportes.RazorAssemblyInfo.cache
@@ -448,6 +447,8 @@ C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\bin\Debug\netcorea
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\bin\Debug\netcoreapp3.1\itext.styledxmlparser.dll
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\bin\Debug\netcoreapp3.1\itext.svg.dll
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\bin\Debug\netcoreapp3.1\Microsoft.DotNet.PlatformAbstractions.dll
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\obj\Debug\netcoreapp3.1\AppReportes.csproj.CoreCompileInputs.cache
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\obj\Debug\netcoreapp3.1\AppReportes.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\obj\Debug\netcoreapp3.1\AppReportes.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\obj\Debug\netcoreapp3.1\AppReportes.csprojAssemblyReference.cache
