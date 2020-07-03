@@ -77,6 +77,8 @@
 
     function ExportarPdf() {
         document.getElementById("tipoReporte").value = "PDF";
+        var frmReporte = document.getElementById("frmReporte");
+        frmReporte.submit();
     }
 
     function Buscar() {

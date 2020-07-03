@@ -23,6 +23,11 @@ namespace AppReportes.Controllers
                 return File(buffer,
                     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             }
+            else if (tipoReporte == "PDF")
+            {
+                byte[] buffer = ExportarPDFDatos(nombreProp, lista);
+                return File(buffer, "application/pdf");
+            }
             return null;
         }
 

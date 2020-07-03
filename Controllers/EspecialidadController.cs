@@ -5,9 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AppReportes.Clases;
 using AppReportes.Models;
-using iText.Kernel.Pdf;
-using iText.Layout;
-using iText.Layout.Element;
 using Microsoft.AspNetCore.Mvc;
 using cm = System.ComponentModel;
 
@@ -27,50 +24,15 @@ namespace AppReportes.Controllers
                 byte[] buffer = ExportarExcelDatos(nombreProp, lista);
                 return File(buffer,
                     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            }else if(tipoReporte == "PDF")
+            }
+            else if(tipoReporte == "PDF")
             {
                 byte[] buffer = ExportarPDFDatos(nombreProp, lista);
                 return File(buffer, "application/pdf");
             }
             return null;
         }
-
-        public byte[] ExportarPDFDatos<T>(string[] nombreProp, List<T> lista)
-        {
-            using(MemoryStream ms = new MemoryStream())
-            {
-                Dictionary<string, string> diccionario = cm.TypeDescriptor
-                        .GetProperties(typeof(T))
-                        .Cast<cm.PropertyDescriptor>()
-                        .ToDictionary(p => p.Name, p => p.DisplayName);
-
-                PdfWriter writer = new PdfWriter(ms);
-                using(var pdfDoc = new PdfDocument(writer))
-                {
-                    Document doc = new Document(pdfDoc);
-                    Paragraph c1 = new Paragraph("Reporte en PDF");
-                    c1.SetFontSize(20);
-                    c1.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
-                    doc.Add(c1);
-
-                    //Creamos la tabla
-                    Table table = new Table(nombreProp.Length);
-                    Cell celda;
-
-                    for(int i = 1; i < nombreProp.Length; i++)
-                    {
-                        celda = new Cell();
-                        celda.Add(new Paragraph(diccionario[nombreProp[i]]));
-                        table.AddHeaderCell(celda);
-                    }
-                    doc.Add(table);
-                    doc.Close();
-                    writer.Close();
-                }
-                return ms.ToArray();
-            }
-        }
-                                  
+                                         
         public IActionResult Index(EspecialidadCLS especialidadCLS)
         {
             List<EspecialidadCLS> listaEspecialidad = new List<EspecialidadCLS>();

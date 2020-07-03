@@ -8,11 +8,62 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using OfficeOpenXml;
 using cm = System.ComponentModel;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
 
 namespace AppReportes.Controllers
 {
     public class BaseController : Controller
     {
+        //Este metodo nos genera el array de bytes(Genera el pdf)
+        public byte[] ExportarPDFDatos<T>(string[] nombreProp, List<T> lista)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                Dictionary<string, string> diccionario = cm.TypeDescriptor
+                        .GetProperties(typeof(T))
+                        .Cast<cm.PropertyDescriptor>()
+                        .ToDictionary(p => p.Name, p => p.DisplayName);
+
+                PdfWriter writer = new PdfWriter(ms);
+                using (var pdfDoc = new PdfDocument(writer))
+                {
+                    Document doc = new Document(pdfDoc);
+                    Paragraph c1 = new Paragraph("Reporte en PDF");
+                    c1.SetFontSize(20);
+                    c1.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
+                    doc.Add(c1);
+
+                    //Creamos la tabla
+                    Table table = new Table(nombreProp.Length);
+                    Cell celda;
+
+                    for (int i = 0; i < nombreProp.Length; i++)
+                    {
+                        celda = new Cell();
+                        celda.Add(new Paragraph(diccionario[nombreProp[i]]));
+                        table.AddHeaderCell(celda);
+                    }
+                    foreach (object item in lista)
+                    {
+                        foreach (string propiedad in nombreProp)
+                        {
+                            celda = new Cell();
+                            celda.Add(new Paragraph(
+                                item.GetType().GetProperty(propiedad).GetValue(item).ToString()
+                            ));
+                            table.AddCell(celda);
+                        }
+                    }
+                    doc.Add(table);
+                    doc.Close();
+                    writer.Close();
+                }
+                return ms.ToArray();
+            }
+        }
+
         //Este metodo nos genera el array de bytes(Genera el excel)
         public byte[] ExportarExcelDatos<T>(string[] nombreProp, List<T> lista)
         {
