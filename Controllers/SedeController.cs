@@ -26,7 +26,14 @@ namespace AppReportes.Controllers
             else if (tipoReporte == "PDF")
             {
                 byte[] buffer = ExportarPDFDatos(nombreProp, lista);
-                return File(buffer, "application/pdf");
+                return File(buffer,
+                    "application/pdf");
+            }
+            else if (tipoReporte == "Word")
+            {
+                byte[] buffer = ExportarWordDatos(nombreProp, lista);
+                return File(buffer,
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
             }
             return null;
         }

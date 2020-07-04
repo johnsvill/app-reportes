@@ -8,9 +8,14 @@
 <a class="btn btn-secondary" asp-controller="Especialidad" asp-action="Agregar">
     <strong>Agregar</strong>
 </a>
-<input type="button" value="Exportar Excel" class=" btn btn-success" onclick="ExportarExcel()"/>
-<input type="button" value="Exportar PDF" class=" btn btn-danger" onclick="ExportarPdf()"/>
-<input type="button" value="Exportar Word" class=" btn btn-primary" onclick="ExportarWord()"/>
+<input type="button" value="Exportar Excel" class=" btn btn-success" 
+       onclick="ExportarExcel()"/>
+<input type="button" value="Exportar PDF" class=" btn btn-danger" 
+       onclick="ExportarPdf('Especialidad')"/>
+<input type="button" value="Exportar Word" class=" btn btn-primary" 
+       onclick="ExportarWord()"/>
+<input type="button" value="Imprimir" class=" btn btn-secondary" 
+       onclick="Imprimir()" />
 <br />
 <form asp-controller="Especialidad" asp-action="Index" method="post" class=" mb-2"
       style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr" id="frmFormulario">
@@ -22,7 +27,7 @@
 </form>
 
 <form asp-controller="Especialidad" asp-action="Exportar" id="frmReporte">
-    <table class="table">       
+    <table class="table" id="table">       
         @*<a asp-action="ExportarExcel" asp-controller="Especialidad">Exportar Excel</a>*@
         <thead class="thead-dark">
             <tr>
@@ -30,7 +35,7 @@
                 <th>@Html.DisplayNameFor(x => x.Nombre)</th>
                 <th>@Html.DisplayNameFor(x => x.Descripcion)</th>
             </tr>
-            <tr>
+            <tr id="tcheck">
                 <th>
                     <input type="checkbox" name="nombreProp" value="IdEspecialidad" />
                     <input type="hidden" name="tipoReporte" id="tipoReporte"/>
@@ -57,26 +62,13 @@
     </table>
 </form>
 
-<script>
-    function ExportarExcel() {
-        document.getElementById("tipoReporte").value = "Excel";
-        var frmReporte = document.getElementById("frmReporte");
-        frmReporte.submit();
-    }
+<script src="~/js/generic.js"></script>
+<script src="~/js/sweetalert.js"></script>
 
-    function ExportarWord() {
-        document.getElementById("tipoReporte").value = "Word";
-    }
-
-    function ExportarPdf() {
-        document.getElementById("tipoReporte").value = "PDF";
-        var frmReporte = document.getElementById("frmReporte");
-        frmReporte.submit();
-    }
-
+<script>    
     function Limpiar() {
         document.getElementById("nombre").value = "";
         document.getElementById("frmFormulario").submit();
-    }
+    }  
 </script>
 

@@ -18,7 +18,7 @@
 </form>
 
 <form asp-controller="Sede" asp-action="Exportar" id="frmReporte">
-    <table class="table">
+    <table class="table" id="table">
         <thead class="thead-dark">
             <tr>
                 <th>
@@ -31,7 +31,7 @@
                     @Html.DisplayNameFor(x => x.Direccion)
                 </th>
             </tr>
-            <tr>
+            <tr id="tcheck">
                 <th>
                     <input type="checkbox" name="nombreProp" value="IdSede" />
                     <input type="hidden" name="tipoReporte" id="tipoReporte" />
@@ -65,22 +65,6 @@
 </form>
 
 <script>
-    function ExportarExcel() {
-        document.getElementById("tipoReporte").value = "Excel";
-        var frmReporte = document.getElementById("frmReporte");
-        frmReporte.submit();
-    }
-
-    function ExportarWord() {
-        document.getElementById("tipoReporte").value = "Word";
-    }
-
-    function ExportarPdf() {
-        document.getElementById("tipoReporte").value = "PDF";
-        var frmReporte = document.getElementById("frmReporte");
-        frmReporte.submit();
-    }
-
     function Buscar() {
         document.getElementById("frmEnviar").submit();
     }

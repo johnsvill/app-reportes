@@ -448,6 +448,10 @@ C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\bin\Debug\netcorea
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\bin\Debug\netcoreapp3.1\itext.svg.dll
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\bin\Debug\netcoreapp3.1\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\bin\Debug\netcoreapp3.1\Syncfusion.Compression.Portable.dll
+C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\bin\Debug\netcoreapp3.1\Syncfusion.DocIO.Portable.dll
+C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\bin\Debug\netcoreapp3.1\Syncfusion.Licensing.dll
+C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\bin\Debug\netcoreapp3.1\Syncfusion.OfficeChart.Portable.dll
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\obj\Debug\netcoreapp3.1\AppReportes.csproj.CoreCompileInputs.cache
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\obj\Debug\netcoreapp3.1\AppReportes.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\johns\Documents\Proyectos C#\AppReportes\AppReportes\obj\Debug\netcoreapp3.1\AppReportes.MvcApplicationPartsAssemblyInfo.cache
