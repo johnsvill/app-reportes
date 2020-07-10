@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "d4Dhgh7vRpphl9UFLkMDQ4EJwL8JVdWp/BVXSsVwVZjwT0ZinaUd3hVqPn4qZOOxcM4MydeUmBYv4kE06OmxiQ==",
+  "dgSpecHash": "kE7oZPVDGBJ1hc1QvTavYdGkWXftkgix9PPKeaE6gmb8Skn/mCsSyIuKKRb0A1UD0h+15nu/uvXRGY6RfwejHA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\johns\\Documents\\Proyectos C#\\AppReportes\\AppReportes\\AppReportes.csproj",
+  "projectFilePath": "C:\\Users\\johns\\Documents\\Proyectos C#\\app-reportes\\AppReportes.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\johns\\.nuget\\packages\\common.logging\\3.4.1\\common.logging.3.4.1.nupkg.sha512",
     "C:\\Users\\johns\\.nuget\\packages\\common.logging.core\\3.4.1\\common.logging.core.3.4.1.nupkg.sha512",

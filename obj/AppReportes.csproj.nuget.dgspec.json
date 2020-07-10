@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\johns\\Documents\\Proyectos C#\\AppReportes\\AppReportes\\AppReportes.csproj": {}
+    "C:\\Users\\johns\\Documents\\Proyectos C#\\app-reportes\\AppReportes.csproj": {}
   },
   "projects": {
-    "C:\\Users\\johns\\Documents\\Proyectos C#\\AppReportes\\AppReportes\\AppReportes.csproj": {
+    "C:\\Users\\johns\\Documents\\Proyectos C#\\app-reportes\\AppReportes.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\johns\\Documents\\Proyectos C#\\AppReportes\\AppReportes\\AppReportes.csproj",
+        "projectUniqueName": "C:\\Users\\johns\\Documents\\Proyectos C#\\app-reportes\\AppReportes.csproj",
         "projectName": "AppReportes",
-        "projectPath": "C:\\Users\\johns\\Documents\\Proyectos C#\\AppReportes\\AppReportes\\AppReportes.csproj",
+        "projectPath": "C:\\Users\\johns\\Documents\\Proyectos C#\\app-reportes\\AppReportes.csproj",
         "packagesPath": "C:\\Users\\johns\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\johns\\Documents\\Proyectos C#\\AppReportes\\AppReportes\\obj\\",
+        "outputPath": "C:\\Users\\johns\\Documents\\Proyectos C#\\app-reportes\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
