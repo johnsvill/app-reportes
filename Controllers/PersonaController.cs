@@ -38,7 +38,7 @@ namespace AppReportes.Controllers
             LlenarSexo();
             using (BDHospitalContext db = new BDHospitalContext())
             {
-                if(personaCLS.IdSexo == 0)
+                if(personaCLS.IdSexo == null || personaCLS.IdSexo == 0)
                 {
                     listaPersona = (from persona in db.Persona
                                     join sexo in db.Sexo
@@ -71,6 +71,48 @@ namespace AppReportes.Controllers
                 }
             }
             return View(listaPersona);
+        }
+
+        public IActionResult Agregar()
+        {
+            LlenarSexo();
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Agregar(PersonaCLS oPersonaCLS)
+        {
+            LlenarSexo();
+            try
+            {
+                if(!ModelState.IsValid)
+                {
+                    using (BDHospitalContext db = new BDHospitalContext())
+                    {
+                        Persona oPersona = new Persona();
+                        oPersona.Nombre = oPersonaCLS.Nombre;
+                        oPersona.Appaterno = oPersonaCLS.ApPaterno;
+                        oPersona.Appaterno = oPersonaCLS.ApMaterno;
+                        oPersona.Telefonocelular = oPersonaCLS.NumeroTelefono;
+                        oPersona.Email = oPersonaCLS.Email;
+                        oPersona.Fechanacimiento = oPersonaCLS.FechaNacimiento;
+                        oPersona.Iidsexo = oPersonaCLS.IdSexo;
+                        oPersona.Bhabilitado = 1;
+
+                        db.Add(oPersona);
+                        db.SaveChanges();
+                    }
+                }
+                else
+                {
+                    return View(oPersonaCLS);
+                }
+            }
+            catch(Exception e)
+            {
+                return View(oPersonaCLS);
+            }
+            return RedirectToAction("Index");
         }
     }
 }

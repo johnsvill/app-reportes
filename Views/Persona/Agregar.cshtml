@@ -1,0 +1,72 @@
+﻿@model AppReportes.Clases.PersonaCLS
+
+@{
+    ViewData["Title"] = "Agregar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<SelectListItem> lista = ViewBag.ListaSexo;
+}
+
+<h1>Agregar</h1>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Agregar" id="frmEnviar" asp-controller="Persona" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>        
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApPaterno" class="control-label"></label>
+                <input asp-for="ApPaterno" class="form-control" />
+                <span asp-validation-for="ApPaterno" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApMaterno" class="control-label"></label>
+                <input asp-for="ApMaterno" class="form-control" />
+                <span asp-validation-for="ApMaterno" class="text-danger"></span>
+            </div>         
+            <div class="form-group">
+                <label asp-for="NumeroTelefono" class="control-label"></label>
+                <input asp-for="NumeroTelefono" class="form-control" />
+                <span asp-validation-for="NumeroTelefono" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaNacimiento" class="control-label"></label>
+                <input asp-for="FechaNacimiento" class="form-control" />
+                <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+            </div>      
+            <div class="form-group">
+                <label asp-for="IdSexo" class="control-label"></label>              
+                <select asp-for="IdSexo" class="form-control" asp-items="@lista">
+
+                </select>
+                <span asp-validation-for="IdSexo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="button" value="Guardar" class="btn btn-primary" onclick="Abrir()"/>
+                <a class="btn btn-primary" asp-controller="Persona" asp-action="Index">
+                    Regresar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="~/js/generic.js"></script>
+<script src="~/js/sweetalert.js"></script>
+<script>
+    function Abrir() {
+        mostrarModal().then(res => {
+            if (res.value) {
+                var frmEnviar = document.getElementById("frmEnviar");
+                frmEnviar.submit();
+            }
+        })
+    }
+</script>
