@@ -25,7 +25,7 @@ namespace AppReportes.Controllers
                              }).ToList();
                 listaSexo.Insert(0, new SelectListItem
                 {
-                    Text = "--Selecionar--",
+                    Text = "--Seleccionar--",
                     Value = ""
                 });
             }
@@ -38,7 +38,8 @@ namespace AppReportes.Controllers
             LlenarSexo();
             using (BDHospitalContext db = new BDHospitalContext())
             {
-                if(personaCLS.IdSexo == null || personaCLS.IdSexo == 0)
+                //Validar para que soporte enteros nulos, ? en propiedad int
+                if (personaCLS.IdSexo == null || personaCLS.IdSexo == 0)
                 {
                     listaPersona = (from persona in db.Persona
                                     join sexo in db.Sexo

@@ -34,6 +34,7 @@
                 <th>@Html.DisplayNameFor(x => x.IdEspecialidad)</th>
                 <th>@Html.DisplayNameFor(x => x.Nombre)</th>
                 <th>@Html.DisplayNameFor(x => x.Descripcion)</th>
+                <th><strong>Operaciones</strong></th>
             </tr>
             <tr id="tcheck">
                 <th>
@@ -56,10 +57,20 @@
                     <td>@oEspecialidad.IdEspecialidad</td>
                     <td>@oEspecialidad.Nombre</td>
                     <td>@oEspecialidad.Descripcion</td>
+                    <td>
+                        <i class="fa fa-trash btn btn-danger" aria-hidden="true"
+                           onclick="EliminarEspecialidad(@oEspecialidad.IdEspecialidad)">
+                           
+                        </i>                     
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
+</form>
+
+<form asp-action="Eliminar" asp-controller="Especialidad" method="post" id="frmEnviarEliminar">
+    <input type="hidden" id="txtIdEspecialidad" name="IdEspecialidad"/>
 </form>
 
 <script src="~/js/generic.js"></script>
@@ -70,5 +81,16 @@
         document.getElementById("nombre").value = "";
         document.getElementById("frmFormulario").submit();
     }  
+
+    function EliminarEspecialidad(IdEspecialidad) {
+        //alert(IdEspecialidad);
+        document.getElementById("txtIdEspecialidad").value = IdEspecialidad;
+        mostrarModal().then(res => {
+            if (res.value) {
+                var frmEnviarEliminar = document.getElementById("frmEnviarEliminar");
+                frmEnviarEliminar.submit();
+            }                
+        })
+    }
 </script>
 
