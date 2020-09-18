@@ -45,19 +45,19 @@
           "dependencies": {
             "EPPlus": {
               "target": "Package",
-              "version": "[5.2.0, )"
+              "version": "[5.3.2, )"
             },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[3.1.5, )"
+              "version": "[3.1.8, )"
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[3.1.5, )"
+              "version": "[3.1.8, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
-              "version": "[3.1.5, )"
+              "version": "[3.1.8, )"
             },
             "Microsoft.AspNetCore.Mvc.Core": {
               "target": "Package",
@@ -65,27 +65,29 @@
             },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
-              "version": "[3.1.5, )"
+              "version": "[3.1.8, )"
             },
             "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
               "target": "Package",
-              "version": "[3.1.5, )"
+              "version": "[3.1.8, )"
             },
             "Microsoft.DotNet.PlatformAbstractions": {
               "target": "Package",
-              "version": "[3.1.5, )"
+              "version": "[3.1.6, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[3.1.5, )"
+              "version": "[3.1.8, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[3.1.5, )"
+              "version": "[3.1.8, )"
             },
             "Microsoft.Extensions.Identity.Stores": {
               "target": "Package",
-              "version": "[3.1.5, )"
+              "version": "[3.1.8, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
@@ -93,11 +95,11 @@
             },
             "Syncfusion.DocIO.Net.Core": {
               "target": "Package",
-              "version": "[18.1.0.59, )"
+              "version": "[18.2.0.58, )"
             },
             "itext7": {
               "target": "Package",
-              "version": "[7.1.11, )"
+              "version": "[7.1.12, )"
             }
           },
           "imports": [

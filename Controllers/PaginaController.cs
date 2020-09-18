@@ -83,5 +83,26 @@ namespace AppReportes.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        //Eliminación física
+        [HttpPost]
+        public IActionResult Eliminar(int IdPagina)
+        {
+            string Error;
+            try
+            {
+                using (BDHospitalContext db = new BDHospitalContext())
+                {
+                    Pagina oPagina = db.Pagina.Where(x => x.Iidpagina == IdPagina).First();
+                    db.Pagina.Remove(oPagina);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                Error = e.Message;
+            }           
+            return RedirectToAction("Index");
+        }
     }
 }

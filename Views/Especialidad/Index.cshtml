@@ -59,8 +59,7 @@
                     <td>@oEspecialidad.Descripcion</td>
                     <td>
                         <i class="fa fa-trash btn btn-danger" aria-hidden="true"
-                           onclick="EliminarEspecialidad(@oEspecialidad.IdEspecialidad)">
-                           
+                           onclick="EliminarEspecialidad(@oEspecialidad.IdEspecialidad)">                        
                         </i>                     
                     </td>
                 </tr>
@@ -82,6 +81,7 @@
         document.getElementById("frmFormulario").submit();
     }  
 
+    //Eliminación lógica
     function EliminarEspecialidad(IdEspecialidad) {
         //alert(IdEspecialidad);
         document.getElementById("txtIdEspecialidad").value = IdEspecialidad;

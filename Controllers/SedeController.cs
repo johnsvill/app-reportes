@@ -72,5 +72,18 @@ namespace AppReportes.Controllers
             lista = listaSedes;
             return View(listaSedes);
         }
+
+        //Eliminación lógica
+        [HttpPost]
+        public IActionResult Eliminar(int IdSede)
+        {
+            using(BDHospitalContext db = new BDHospitalContext())
+            {
+                Sede oSede = db.Sede.Where(x => x.Iidsede == IdSede).First();
+                oSede.Bhabilitado = 0;//Eliminación lógica
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

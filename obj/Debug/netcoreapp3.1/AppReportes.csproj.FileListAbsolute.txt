@@ -876,7 +876,6 @@ C:\Users\johns\Documents\Proyectos C#\app-reportes\bin\Debug\netcoreapp3.1\runti
 C:\Users\johns\Documents\Proyectos C#\app-reportes\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\johns\Documents\Proyectos C#\app-reportes\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\johns\Documents\Proyectos C#\app-reportes\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Text.Encoding.CodePages.dll
-C:\Users\johns\Documents\Proyectos C#\app-reportes\obj\Debug\netcoreapp3.1\AppReportes.csprojAssemblyReference.cache
 C:\Users\johns\Documents\Proyectos C#\app-reportes\obj\Debug\netcoreapp3.1\AppReportes.AssemblyInfoInputs.cache
 C:\Users\johns\Documents\Proyectos C#\app-reportes\obj\Debug\netcoreapp3.1\AppReportes.AssemblyInfo.cs
 C:\Users\johns\Documents\Proyectos C#\app-reportes\obj\Debug\netcoreapp3.1\AppReportes.csproj.CoreCompileInputs.cache
@@ -915,3 +914,10 @@ C:\Users\johns\Documents\Proyectos C#\app-reportes\obj\Debug\netcoreapp3.1\AppRe
 C:\Users\johns\Documents\Proyectos C#\app-reportes\obj\Debug\netcoreapp3.1\AppReportes.pdb
 C:\Users\johns\Documents\Proyectos C#\app-reportes\obj\Debug\netcoreapp3.1\AppReportes.genruntimeconfig.cache
 C:\Users\johns\Documents\Proyectos C#\app-reportes\obj\Debug\netcoreapp3.1\Razor\Views\Persona\Agregar.cshtml.g.cs
+C:\Users\johns\Documents\Proyectos C#\app-reportes\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\johns\Documents\Proyectos C#\app-reportes\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+C:\Users\johns\Documents\Proyectos C#\app-reportes\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+C:\Users\johns\Documents\Proyectos C#\app-reportes\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\johns\Documents\Proyectos C#\app-reportes\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+C:\Users\johns\Documents\Proyectos C#\app-reportes\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\johns\Documents\Proyectos C#\app-reportes\obj\Debug\netcoreapp3.1\AppReportes.csprojAssemblyReference.cache

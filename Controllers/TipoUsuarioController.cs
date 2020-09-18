@@ -56,5 +56,27 @@ namespace AppReportes.Controllers
             }
             return View(listaUser);
         }
+
+        //Eliminación física
+        [HttpPost]
+        public IActionResult Eliminar(int TipoUsuario)
+        {
+            string Error;
+            try
+            {
+                using (BDHospitalContext db = new BDHospitalContext())
+                {
+                    TipoUsuario oTipoUsuario = db.TipoUsuario.Where(x =>
+                         x.Iidtipousuario == TipoUsuario).First();
+                    db.TipoUsuario.Remove(oTipoUsuario);
+                    db.SaveChanges();
+                }
+            }
+            catch(Exception e)
+            {
+                Error = e.Message;
+            }           
+            return RedirectToAction("Index");
+        }
     }
 }

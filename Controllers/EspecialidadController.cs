@@ -83,25 +83,25 @@ namespace AppReportes.Controllers
             return View();
         }
 
-        [HttpDelete]
+        //Eliminación lógica
+        [HttpPost]
         public IActionResult Eliminar(int IdEspecialidad)
         {
+            string Error;
             try
             {
                 using (BDHospitalContext db = new BDHospitalContext())
                 {
                     Especialidad oEspecialidad = db.Especialidad
                         .Where(x => x.Iidespecialidad == IdEspecialidad).First();
-                    oEspecialidad.Bhabilitado = 0;
+                    oEspecialidad.Bhabilitado = 0;//Se cambia de estado y no se elimina
                     db.SaveChanges();
                 }
-
             }
             catch(Exception e)
             {
-                
+                Error = e.Message;
             }
-
             return RedirectToAction("Index");
         }
 
