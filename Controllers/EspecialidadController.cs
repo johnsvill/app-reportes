@@ -41,38 +41,46 @@ namespace AppReportes.Controllers
             cadena = "data:application/pdf;base64," + cadena;
             return cadena;
         }
-
+        
         public IActionResult Index(EspecialidadCLS especialidadCLS)
         {
             List<EspecialidadCLS> listaEspecialidad = new List<EspecialidadCLS>();
             using (BDHospitalContext db = new BDHospitalContext())
             {
-                //Condición para filtrar
-                if (especialidadCLS.Nombre == null || especialidadCLS.Nombre == " ")
+                string Error;
+                try
                 {
-                    listaEspecialidad = (from especialidad in db.Especialidad
-                                         where especialidad.Bhabilitado == 1
-                                         select new EspecialidadCLS
-                                         {
-                                             IdEspecialidad = especialidad.Iidespecialidad,
-                                             Nombre = especialidad.Nombre,
-                                             Descripcion = especialidad.Descripcion
-                                         }).ToList();
-                    ViewBag.NombreEspecialidad = "";             
+                    //Condición para filtrar
+                    if (especialidadCLS.Nombre == null || especialidadCLS.Nombre == " ")
+                    {
+                        listaEspecialidad = (from especialidad in db.Especialidad
+                                             where especialidad.Bhabilitado == 1
+                                             select new EspecialidadCLS
+                                             {
+                                                 IdEspecialidad = especialidad.Iidespecialidad,
+                                                 Nombre = especialidad.Nombre,
+                                                 Descripcion = especialidad.Descripcion
+                                             }).ToList();
+                        ViewBag.NombreEspecialidad = "";
+                    }
+                    else
+                    {
+                        listaEspecialidad = (from especialidad in db.Especialidad
+                                             where especialidad.Bhabilitado == 1
+                                             && especialidad.Nombre.Contains(especialidadCLS.Nombre)
+                                             select new EspecialidadCLS
+                                             {
+                                                 IdEspecialidad = especialidad.Iidespecialidad,
+                                                 Nombre = especialidad.Nombre,
+                                                 Descripcion = especialidad.Descripcion
+                                             }).ToList();
+                        ViewBag.NombreEspecialidad = especialidadCLS.Nombre;//Para guardar la busqueda
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    listaEspecialidad = (from especialidad in db.Especialidad
-                                         where especialidad.Bhabilitado == 1
-                                         && especialidad.Nombre.Contains(especialidadCLS.Nombre)
-                                         select new EspecialidadCLS
-                                         {
-                                             IdEspecialidad = especialidad.Iidespecialidad,
-                                             Nombre = especialidad.Nombre,
-                                             Descripcion = especialidad.Descripcion
-                                         }).ToList();
-                    ViewBag.NombreEspecialidad = especialidadCLS.Nombre;//Para guardar la busqueda
-                }
+                    Error = e.Message;
+                }                
             }
             lista = listaEspecialidad;
             return View(listaEspecialidad);
@@ -134,6 +142,24 @@ namespace AppReportes.Controllers
                 return View(especialidadCLS);
             }
             return RedirectToAction("Index");
+        }
+           
+        [HttpGet]
+        public IActionResult Editar(int id)
+        {
+            EspecialidadCLS oEspecialidadCLS = new EspecialidadCLS();
+            using(BDHospitalContext db = new BDHospitalContext())
+            {
+                oEspecialidadCLS = (from e in db.Especialidad
+                                    where e.Iidespecialidad == id
+                                    select new EspecialidadCLS
+                                    {
+                                        IdEspecialidad = e.Iidespecialidad,
+                                        Nombre = e.Nombre,
+                                        Descripcion = e.Descripcion
+                                    }).First();
+            }
+            return View(oEspecialidadCLS);
         }
     }
 }
