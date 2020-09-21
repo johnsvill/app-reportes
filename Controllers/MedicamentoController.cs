@@ -6,13 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using AppReportes.Clases;
 using AppReportes.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AppReportes.Controllers
 {
     public class MedicamentoController : Controller
     {
+        public string Error = "Ha ocurrido una excepción, favor intente de nuevo";
+
         public List<SelectListItem> ListarFormaFarmaceutica()
-        {
+        {            
             List<SelectListItem> selectLists = new List<SelectListItem>();
             using(BDHospitalContext db = new BDHospitalContext())
             {
@@ -37,6 +40,30 @@ namespace AppReportes.Controllers
             //Siempre para pasar un ComboBox a la vista se hace un ViewBag
             ViewBag.ListaFormaFarmaceutica = ListarFormaFarmaceutica();
             return View();
+        }
+
+        //Recuperar información para el combo box
+        public IActionResult Editar(int id)
+        {
+            MedicamentoCLS oMedicamentoCLS = new MedicamentoCLS();
+            using(BDHospitalContext db = new BDHospitalContext())
+            {
+                oMedicamentoCLS = (from m in db.Medicamento
+                                   where m.Iidmedicamento == id
+                                   select new MedicamentoCLS
+                                   {
+                                       IdMedicamento = m.Iidmedicamento,
+                                       Nombre = m.Nombre,
+                                       Concentracion = m.Concentracion,
+                                       IdFormaFarmaceutica = m.Iidformafarmaceutica,
+                                       Precio = m.Precio,
+                                       Stock = m.Stock,
+                                       Presentacion = m.Presentacion
+                                   }).First();
+            }
+            //Siempre para pasar un ComboBox a la vista se hace un ViewBag
+            ViewBag.ListaFormaFarmaceutica = ListarFormaFarmaceutica();
+            return View(oMedicamentoCLS);
         }
 
         [HttpPost]
@@ -67,9 +94,9 @@ namespace AppReportes.Controllers
                     }
                 }
             }
-            catch(Exception)
+            catch(Exception e)
             {
-
+                Error = e.Message;
             }
             return RedirectToAction("Index");
         }

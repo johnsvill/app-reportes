@@ -7,12 +7,12 @@ using AppReportes.Clases;
 using AppReportes.Models;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace AppReportes.Controllers
 {
     public class EspecialidadController : BaseController
     {
         public static List<EspecialidadCLS> lista;
+        public string Error = "Ha ocurrido una excepción, favor vuelva a intentar";
 
         //Este metodo nos descarga el excel, word y pdf
         public FileResult Exportar(string[] nombreProp, string tipoReporte)
@@ -46,8 +46,7 @@ namespace AppReportes.Controllers
         {
             List<EspecialidadCLS> listaEspecialidad = new List<EspecialidadCLS>();
             using (BDHospitalContext db = new BDHospitalContext())
-            {
-                string Error;
+            {                
                 try
                 {
                     //Condición para filtrar
@@ -94,8 +93,7 @@ namespace AppReportes.Controllers
         //Eliminación lógica
         [HttpPost]
         public IActionResult Eliminar(int IdEspecialidad)
-        {
-            string Error;
+        {           
             try
             {
                 using (BDHospitalContext db = new BDHospitalContext())
@@ -116,30 +114,45 @@ namespace AppReportes.Controllers
         [HttpPost]
         public IActionResult Agregar(EspecialidadCLS especialidadCLS)
         {
+            string NombreVista = "";
             try
             {
+                if (especialidadCLS.IdEspecialidad == 0) NombreVista = "Agregar";
+                else NombreVista = "Editar";
+
                 using(BDHospitalContext db = new BDHospitalContext())
                 {
                     if(!ModelState.IsValid)
                     {
-                        return View(especialidadCLS);
+                        return View(NombreVista, especialidadCLS);
                     }
                     else
                     {
-                        Especialidad objeto = new Especialidad
+                        if(especialidadCLS.IdEspecialidad == 0)
                         {
-                            Nombre = especialidadCLS.Nombre,
-                            Descripcion = especialidadCLS.Descripcion,
-                            Bhabilitado = 1
-                        };
-                        db.Especialidad.Add(objeto);
-                        db.SaveChanges();
+                            Especialidad objeto = new Especialidad
+                            {
+                                Nombre = especialidadCLS.Nombre,
+                                Descripcion = especialidadCLS.Descripcion,
+                                Bhabilitado = 1
+                            };
+                            db.Especialidad.Add(objeto);
+                            db.SaveChanges();
+                        } 
+                        else
+                        {
+                            Especialidad objeto = db.Especialidad
+                                .Where(p => p.Iidespecialidad == especialidadCLS.IdEspecialidad).First();
+                            objeto.Nombre = especialidadCLS.Nombre;
+                            objeto.Descripcion = especialidadCLS.Descripcion;
+                            db.SaveChanges();
+                        }
                     }
                 }
             }
             catch(Exception)
             {
-                return View(especialidadCLS);
+                return View(NombreVista, especialidadCLS);                
             }
             return RedirectToAction("Index");
         }

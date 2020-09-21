@@ -920,5 +920,6 @@ C:\Users\johns\Documents\Proyectos C#\app-reportes\bin\Debug\netcoreapp3.1\Micro
 C:\Users\johns\Documents\Proyectos C#\app-reportes\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\johns\Documents\Proyectos C#\app-reportes\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
 C:\Users\johns\Documents\Proyectos C#\app-reportes\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
-C:\Users\johns\Documents\Proyectos C#\app-reportes\obj\Debug\netcoreapp3.1\AppReportes.csprojAssemblyReference.cache
 C:\Users\johns\Documents\Proyectos C#\app-reportes\obj\Debug\netcoreapp3.1\Razor\Views\Especialidad\Editar.cshtml.g.cs
+C:\Users\johns\Documents\Proyectos C#\app-reportes\obj\Debug\netcoreapp3.1\AppReportes.csprojAssemblyReference.cache
+C:\Users\johns\Documents\Proyectos C#\app-reportes\obj\Debug\netcoreapp3.1\Razor\Views\Medicamento\Editar.cshtml.g.cs

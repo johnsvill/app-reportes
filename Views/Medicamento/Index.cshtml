@@ -31,6 +31,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Stock)
             </th>
+            <th><strong>Operaciones</strong></th>
         </tr>
     </thead>
     <tbody>
@@ -52,6 +53,15 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Stock)
                 </td>
+                <th>
+                    <i class="fa fa-trash btn btn-danger" aria-hidden="true"
+                       onclick="EliminarMedicamento(@item.IdMedicamento)">
+                    </i>
+                    <a class="fa fa-edit btn btn-primary" aria-hidden="true"
+                       asp-controller="Medicamento" asp-action="Editar"
+                       asp-route-id="@item.IdMedicamento">
+                    </a>
+                </th>
             </tr>
         }
     </tbody>
