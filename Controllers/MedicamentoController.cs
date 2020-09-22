@@ -17,20 +17,27 @@ namespace AppReportes.Controllers
         public List<SelectListItem> ListarFormaFarmaceutica()
         {            
             List<SelectListItem> selectLists = new List<SelectListItem>();
-            using(BDHospitalContext db = new BDHospitalContext())
+            try
             {
-                selectLists = (from ff in db.FormaFarmaceutica
-                               where ff.Bhabilitado == 1
-                               select new SelectListItem
-                               {
-                                   Text = ff.Nombre,
-                                   Value = ff.Iidformafarmaceutica.ToString()
-                               }).ToList();
-                selectLists.Insert(0, new SelectListItem
+                using (BDHospitalContext db = new BDHospitalContext())
                 {
-                    Text = "--Seleccione--",
-                    Value = ""
-                });
+                    selectLists = (from ff in db.FormaFarmaceutica
+                                   where ff.Bhabilitado == 1
+                                   select new SelectListItem
+                                   {
+                                       Text = ff.Nombre,
+                                       Value = ff.Iidformafarmaceutica.ToString()
+                                   }).ToList();
+                    selectLists.Insert(0, new SelectListItem
+                    {
+                        Text = "--Seleccione--",
+                        Value = ""
+                    });
+                }
+            }
+            catch(Exception e)
+            {
+                Error = e.Message;
             }
             return selectLists;
         }
@@ -43,54 +50,132 @@ namespace AppReportes.Controllers
         }
 
         //Recuperar información para el combo box
+        [HttpGet]
         public IActionResult Editar(int id)
         {
             MedicamentoCLS oMedicamentoCLS = new MedicamentoCLS();
-            using(BDHospitalContext db = new BDHospitalContext())
+            try
             {
-                oMedicamentoCLS = (from m in db.Medicamento
-                                   where m.Iidmedicamento == id
-                                   select new MedicamentoCLS
-                                   {
-                                       IdMedicamento = m.Iidmedicamento,
-                                       Nombre = m.Nombre,
-                                       Concentracion = m.Concentracion,
-                                       IdFormaFarmaceutica = m.Iidformafarmaceutica,
-                                       Precio = m.Precio,
-                                       Stock = m.Stock,
-                                       Presentacion = m.Presentacion
-                                   }).First();
+                using (BDHospitalContext db = new BDHospitalContext())
+                {
+                    oMedicamentoCLS = (from m in db.Medicamento
+                                       where m.Iidmedicamento == id
+                                       select new MedicamentoCLS
+                                       {
+                                           IdMedicamento = m.Iidmedicamento,
+                                           Nombre = m.Nombre,
+                                           Concentracion = m.Concentracion,
+                                           IdFormaFarmaceutica = m.Iidformafarmaceutica,
+                                           Precio = m.Precio,
+                                           Stock = m.Stock,
+                                           Presentacion = m.Presentacion
+                                       }).First();
+                }
+            }
+            catch(Exception e)
+            {
+                Error = e.Message;
             }
             //Siempre para pasar un ComboBox a la vista se hace un ViewBag
             ViewBag.ListaFormaFarmaceutica = ListarFormaFarmaceutica();
             return View(oMedicamentoCLS);
         }
 
+        //Metodo para editar un combo box
         [HttpPost]
         public IActionResult Agregar(MedicamentoCLS medicamentoCLS)
         {
+            string NombreVista = "";
             try
             {
                 using(BDHospitalContext db = new BDHospitalContext())
                 {
-                    if(!ModelState.IsValid)
+                    if (medicamentoCLS.IdMedicamento == 0) NombreVista = "Agregar";
+                    else NombreVista = "Editar";
+
+                    if (!ModelState.IsValid)
                     {
                         //Siempre para pasar un ComboBox a la vista se hace un ViewBag
                         ViewBag.ListaFormaFarmaceutica = ListarFormaFarmaceutica();
-                        return View(medicamentoCLS);
+                        return View(NombreVista, medicamentoCLS);
                     }
                     else
                     {
-                        Medicamento m = new Medicamento();
-                        m.Nombre = medicamentoCLS.Nombre;
-                        m.Concentracion = medicamentoCLS.Concentracion;
-                        m.Iidformafarmaceutica = medicamentoCLS.IdFormaFarmaceutica;
-                        m.Precio = medicamentoCLS.Precio;
-                        m.Stock = medicamentoCLS.Stock;
-                        m.Presentacion = medicamentoCLS.Presentacion;
-                        m.Bhabilitado = 1;
-                        db.Medicamento.Add(m);
-                        db.SaveChanges();
+                        if(medicamentoCLS.IdMedicamento == 0)
+                        {
+                            Medicamento m = new Medicamento();
+                            m.Nombre = medicamentoCLS.Nombre;
+                            m.Concentracion = medicamentoCLS.Concentracion;
+                            m.Iidformafarmaceutica = medicamentoCLS.IdFormaFarmaceutica;
+                            m.Precio = medicamentoCLS.Precio;
+                            m.Stock = medicamentoCLS.Stock;
+                            m.Presentacion = medicamentoCLS.Presentacion;
+                            m.Bhabilitado = 1;
+                            db.Medicamento.Add(m);
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            Medicamento m = db.Medicamento
+                                .Where(x => x.Iidmedicamento == medicamentoCLS.IdMedicamento).First();
+                            m.Nombre = medicamentoCLS.Nombre;
+                            m.Concentracion = medicamentoCLS.Concentracion;
+                            m.Iidformafarmaceutica = medicamentoCLS.IdFormaFarmaceutica;
+                            m.Precio = medicamentoCLS.Precio;
+                            m.Stock = medicamentoCLS.Stock;
+                            m.Presentacion = medicamentoCLS.Presentacion;
+                            db.SaveChanges();
+                        }
+                    }
+                }
+            }
+            catch(Exception)
+            {
+                return View(NombreVista, medicamentoCLS);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Index(MedicamentoCLS medicamentoCLS)
+        {
+            ViewBag.ListaForma = ListarFormaFarmaceutica();
+            List<MedicamentoCLS> listaMedicamento = new List<MedicamentoCLS>();
+            try
+            {
+                using (BDHospitalContext db = new BDHospitalContext())
+                {
+                    if (medicamentoCLS.IdFormaFarmaceutica == null ||
+                        medicamentoCLS.IdFormaFarmaceutica == 0)//Validacion ? en propiedades de tipo int y decimal
+                    {
+                        listaMedicamento = (from m in db.Medicamento
+                                            join ff in db.FormaFarmaceutica
+                                            on m.Iidformafarmaceutica equals ff.Iidformafarmaceutica
+                                            where m.Bhabilitado == 1
+                                            select new MedicamentoCLS
+                                            {
+                                                IdMedicamento = m.Iidmedicamento,
+                                                Nombre = m.Nombre,
+                                                Precio = (decimal)m.Precio,
+                                                Stock = (int)m.Stock,
+                                                NombreFormaFarmaceutica = ff.Nombre
+                                            }).ToList();
+                    }
+                    else
+                    {
+                        listaMedicamento = (from m in db.Medicamento
+                                            join ff in db.FormaFarmaceutica
+                                            on m.Iidformafarmaceutica equals ff.Iidformafarmaceutica
+                                            where m.Bhabilitado == 1
+                                            && m.Iidformafarmaceutica == medicamentoCLS.IdFormaFarmaceutica
+                                            select new MedicamentoCLS
+                                            {
+                                                IdMedicamento = m.Iidmedicamento,
+                                                Nombre = m.Nombre,
+                                                Precio = (decimal)m.Precio,
+                                                Stock = (int)m.Stock,
+                                                NombreFormaFarmaceutica = ff.Nombre
+                                            }).ToList();
                     }
                 }
             }
@@ -98,49 +183,27 @@ namespace AppReportes.Controllers
             {
                 Error = e.Message;
             }
-            return RedirectToAction("Index");
+            return View(listaMedicamento);
         }
 
-        public IActionResult Index(MedicamentoCLS medicamentoCLS)
+        //Eliminacion fisica
+        [HttpPost]
+        public IActionResult Eliminar(int id)
         {
-            ViewBag.ListaForma = ListarFormaFarmaceutica();
-            List<MedicamentoCLS> listaMedicamento = new List<MedicamentoCLS>();
-            using (BDHospitalContext db = new BDHospitalContext())
-            {
-                if(medicamentoCLS.IdFormaFarmaceutica == null ||
-                    medicamentoCLS.IdFormaFarmaceutica == 0)//Validacion ? en propiedades de tipo int y decimal
+            try
+            {             
+                using(BDHospitalContext db = new BDHospitalContext())
                 {
-                    listaMedicamento = (from m in db.Medicamento
-                                        join ff in db.FormaFarmaceutica
-                                        on m.Iidformafarmaceutica equals ff.Iidformafarmaceutica
-                                        where m.Bhabilitado == 1
-                                        select new MedicamentoCLS
-                                        {
-                                            IdMedicamento = m.Iidmedicamento,
-                                            Nombre = m.Nombre,
-                                            Precio = (decimal)m.Precio,
-                                            Stock = (int)m.Stock,
-                                            NombreFormaFarmaceutica = ff.Nombre
-                                        }).ToList();
-                }
-                else
-                {
-                    listaMedicamento = (from m in db.Medicamento
-                                        join ff in db.FormaFarmaceutica
-                                        on m.Iidformafarmaceutica equals ff.Iidformafarmaceutica
-                                        where m.Bhabilitado == 1
-                                        && m.Iidformafarmaceutica == medicamentoCLS.IdFormaFarmaceutica
-                                        select new MedicamentoCLS
-                                        {
-                                            IdMedicamento = m.Iidmedicamento,
-                                            Nombre = m.Nombre,
-                                            Precio = (decimal)m.Precio,
-                                            Stock = (int)m.Stock,
-                                            NombreFormaFarmaceutica = ff.Nombre
-                                        }).ToList();
+                    Medicamento oMedicamento = db.Medicamento.Where(x => x.Iidmedicamento == id).First();
+                    db.Medicamento.Remove(oMedicamento);
+                    db.SaveChanges();
                 }
             }
-            return View(listaMedicamento);
+            catch(Exception e)
+            {
+                Error = e.Message;
+            }
+            return RedirectToAction("Index");
         }
     }
 }

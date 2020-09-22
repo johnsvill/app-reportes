@@ -12,7 +12,7 @@ namespace AppReportes.Controllers
     public class EspecialidadController : BaseController
     {
         public static List<EspecialidadCLS> lista;
-        public string Error = "Ha ocurrido una excepción, favor vuelva a intentar";
+        public string Error = "Ha ocurrido un error en tiempo de ejecución, por favor espere";
 
         //Este metodo nos descarga el excel, word y pdf
         public FileResult Exportar(string[] nombreProp, string tipoReporte)
@@ -79,6 +79,7 @@ namespace AppReportes.Controllers
                 catch (Exception e)
                 {
                     Error = e.Message;
+                    throw e;
                 }                
             }
             lista = listaEspecialidad;
@@ -107,6 +108,7 @@ namespace AppReportes.Controllers
             catch(Exception e)
             {
                 Error = e.Message;
+                throw e;
             }
             return RedirectToAction("Index");
         }
@@ -115,6 +117,7 @@ namespace AppReportes.Controllers
         public IActionResult Agregar(EspecialidadCLS especialidadCLS)
         {
             string NombreVista = "";
+            int nveces = 0;
             try
             {
                 if (especialidadCLS.IdEspecialidad == 0) NombreVista = "Agregar";
@@ -122,8 +125,15 @@ namespace AppReportes.Controllers
 
                 using(BDHospitalContext db = new BDHospitalContext())
                 {
-                    if(!ModelState.IsValid)
+                    //Se analiza cuantas veces el nombre de la especialidad se repite en la DB
+                    if(especialidadCLS.IdEspecialidad == 0)//Solo afecta al metodo Agregar                        
+                    nveces = db.Especialidad
+                        .Where(x => x.Nombre.ToUpper().Trim() 
+                        == especialidadCLS.Nombre.ToUpper().Trim()).Count();//Para que la comparacion sea todo en mayuscula en DB
+
+                    if(!ModelState.IsValid || nveces >= 1)
                     {
+                        if (nveces >= 1) especialidadCLS.MensajeError = "El nombre de la especialidad ya existe";
                         return View(NombreVista, especialidadCLS);
                     }
                     else
@@ -150,10 +160,11 @@ namespace AppReportes.Controllers
                     }
                 }
             }
-            catch(Exception)
+            catch(Exception e)
             {
-                return View(NombreVista, especialidadCLS);                
-            }
+                return View(NombreVista, especialidadCLS);
+                throw e;
+            }          
             return RedirectToAction("Index");
         }
            
@@ -161,16 +172,24 @@ namespace AppReportes.Controllers
         public IActionResult Editar(int id)
         {
             EspecialidadCLS oEspecialidadCLS = new EspecialidadCLS();
-            using(BDHospitalContext db = new BDHospitalContext())
+            try
             {
-                oEspecialidadCLS = (from e in db.Especialidad
-                                    where e.Iidespecialidad == id
-                                    select new EspecialidadCLS
-                                    {
-                                        IdEspecialidad = e.Iidespecialidad,
-                                        Nombre = e.Nombre,
-                                        Descripcion = e.Descripcion
-                                    }).First();
+                using (BDHospitalContext db = new BDHospitalContext())
+                {
+                    oEspecialidadCLS = (from e in db.Especialidad
+                                        where e.Iidespecialidad == id
+                                        select new EspecialidadCLS
+                                        {
+                                            IdEspecialidad = e.Iidespecialidad,
+                                            Nombre = e.Nombre,
+                                            Descripcion = e.Descripcion
+                                        }).First();
+                }
+            }
+            catch(Exception e)
+            {
+                Error = e.Message;
+                throw e;
             }
             return View(oEspecialidadCLS);
         }

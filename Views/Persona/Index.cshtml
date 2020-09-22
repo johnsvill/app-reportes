@@ -6,40 +6,63 @@
     List<SelectListItem> listaSexo = ViewBag.ListaSexo;
 }
 
-    <a class="btn btn-primary" asp-action="Agregar" asp-controller="Persona">Nuevo</a>
-    <form id="frmEnviar" asp-controller="Persona" asp-action="Index" method="post"
-          style="display:grid; grid-template-columns: 1fr 2fr 1fr 1fr" class="mb-2">
-        <label>Ingrese sexo</label>
-        @Html.DropDownList("IdSexo", listaSexo, new { @class = "form form-control" })
-        <input type="submit" class="btn btn-primary" value="Buscar" />
-        <input type="button" class="btn btn-danger" value="Limpiar" onclick="Limpiar()"/>
-    </form>
+<a class="btn btn-primary" asp-action="Agregar" asp-controller="Persona">Nuevo</a>
+<form id="frmEnviar" asp-controller="Persona" asp-action="Index" method="post"
+      style="display:grid; grid-template-columns: 1fr 2fr 1fr 1fr" class="mb-2">
+    <label>Ingrese sexo</label>
+    @Html.DropDownList("IdSexo", listaSexo, new { @class = "form form-control" })
+    <input type="submit" class="btn btn-primary" value="Buscar" />
+    <input type="button" class="btn btn-danger" value="Limpiar" onclick="Limpiar()" />
+</form>
 
-    <table class="table">
-        <thead class="thead-dark">
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>@Html.DisplayNameFor(x => x.IdPersona)</th>
+            <th>@Html.DisplayNameFor(x => x.NombreCompleto)</th>
+            <th>@Html.DisplayNameFor(x => x.Email)</th>
+            <th>@Html.DisplayNameFor(x => x.NombreSexo)</th>
+            <th><strong>Operaciones</strong></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (PersonaCLS oPersonaCLS in Model)
+        {
             <tr>
-                <th>@Html.DisplayNameFor(x => x.IdPersona)</th>
-                <th>@Html.DisplayNameFor(x => x.NombreCompleto)</th>
-                <th>@Html.DisplayNameFor(x => x.Email)</th>
-                <th>@Html.DisplayNameFor(x => x.NombreSexo)</th>
+                <td>@oPersonaCLS.IdPersona</td>
+                <td>@oPersonaCLS.NombreCompleto</td>
+                <td>@oPersonaCLS.Email</td>
+                <td>@oPersonaCLS.NombreSexo</td>
+                <td>
+                    <i class="fa fa-trash btn btn-danger" aria-hidden="true"
+                       onclick="EliminarPersona(@oPersonaCLS.IdPersona)">
+                    </i>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (PersonaCLS oPersonaCLS in Model)
-            {
-                <tr>
-                    <td>@oPersonaCLS.IdPersona</td>
-                    <td>@oPersonaCLS.NombreCompleto</td>
-                    <td>@oPersonaCLS.Email</td>
-                    <td>@oPersonaCLS.NombreSexo</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
+
+<form asp-action="Eliminar" asp-controller="Persona" method="post" id="frmEnviarEliminar">
+    <input type="hidden" id="txtIdPersona" name="IdPersona" />
+</form>
+
+<script src="~/js/generic.js"></script>
+<script src="~/js/sweetalert.js"></script>
 <script>
     function Limpiar() {
         document.getElementById("IdSexo").value = "";
         document.getElementById("frmEnviar").submit();
+    }
+
+    function EliminarPersona(IdPersona) {
+        document.getElementById("txtIdPersona").value = IdPersona;
+        mostrarModal().then(res => {
+            if (res.value) {
+                var frmEnviarEliminar = document.getElementById("frmEnviarEliminar");
+                frmEnviarEliminar.submit();
+            }
+        })
     }
 </script>
 

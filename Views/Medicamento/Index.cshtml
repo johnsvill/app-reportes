@@ -66,11 +66,27 @@
         }
     </tbody>
 </table>
+<form asp-action="Eliminar" asp-controller="Medicamento" method="post" id="frmEnviarEliminar">
+    <input type="hidden" id="txtIdMedicamento" name="id" />
+</form>
+
+<script src="~/js/sweetalert.js"></script>
+<script src="~/js/generic.js"></script>
 <script>
     var IdFormaFarmaceutica = document.getElementById("IdFormaFarmaceutica");
     //Todo lo q seleccionas o escribas aqui, lo ejecuta(ComboBox)
     IdFormaFarmaceutica.onchange = function () {
 
         document.getElementById("frmEnviar").submit();
+    }
+
+    function EliminarMedicamento(IdMedicamento) {
+        document.getElementById("txtIdMedicamento").value = IdMedicamento;
+        mostrarModal().then(res => {
+            if (res.value) {
+                var frmEnviarEliminar = document.getElementById("frmEnviarEliminar");
+                frmEnviarEliminar.submit();
+            }
+        })
     }
 </script>

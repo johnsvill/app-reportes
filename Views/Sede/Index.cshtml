@@ -33,14 +33,14 @@
             </tr>
             <tr id="tcheck">
                 <th>
-                    <input type="checkbox" name="nombreProp" value="IdSede" />
+                    <input type="checkbox" checked name="nombreProp" value="IdSede" />
                     <input type="hidden" name="tipoReporte" id="tipoReporte" />
                 </th>
                 <th>
-                    <input type="checkbox" name="nombreProp" value="NombreSede" />
+                    <input type="checkbox" checked name="nombreProp" value="NombreSede" />
                 </th>
                 <th>
-                    <input type="checkbox" name="nombreProp" value="Direccion" />
+                    <input type="checkbox" checked name="nombreProp" value="Direccion" />
                 </th>
                 <th><strong>Operaciones</strong></th>
             </tr>
@@ -62,6 +62,10 @@
                         <i class="fa fa-trash btn btn-danger" aria-hidden="true"
                            onclick="EliminarSede(@item.IdSede)">
                         </i>
+                        <a class="fa fa-edit btn btn-primary" aria-hidden="true"
+                           asp-controller="Sede" asp-action="Editar"
+                           asp-route-id="@item.IdSede">
+                        </a>
                     </td>
                 </tr>
             }

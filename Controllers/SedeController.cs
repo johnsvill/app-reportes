@@ -11,6 +11,7 @@ namespace AppReportes.Controllers
     public class SedeController : BaseController
     {
         public static List<SedeCLS> lista;
+        public string Error = "Ha ocurrido una excepción, favor intente de nuevo";
 
         //Este metodo nos descarga el excel, word y pdf
         public FileResult Exportar(string[] nombreProp, string tipoReporte)
@@ -41,47 +42,121 @@ namespace AppReportes.Controllers
         public IActionResult Index(SedeCLS oSedeCLS)
         {
             List<SedeCLS> listaSedes = new List<SedeCLS>();
-            using (BDHospitalContext db = new BDHospitalContext())
+            try
             {
-                if(oSedeCLS.NombreSede == "" || oSedeCLS.NombreSede == null)//Filtro sensitivo
+                using (BDHospitalContext db = new BDHospitalContext())
                 {
-                    listaSedes = (from sede in db.Sede
-                                  where sede.Bhabilitado == 1
-                                  select new SedeCLS
-                                  {
-                                      IdSede = sede.Iidsede,
-                                      NombreSede = sede.Nombre,
-                                      Direccion = sede.Direccion
-                                  }).ToList();
-                    ViewBag.NombreSede = "";
+                    if (oSedeCLS.NombreSede == "" || oSedeCLS.NombreSede == null)//Filtro sensitivo
+                    {
+                        listaSedes = (from sede in db.Sede
+                                      where sede.Bhabilitado == 1
+                                      select new SedeCLS
+                                      {
+                                          IdSede = sede.Iidsede,
+                                          NombreSede = sede.Nombre,
+                                          Direccion = sede.Direccion
+                                      }).ToList();
+                        ViewBag.NombreSede = "";
+                    }
+                    else
+                    {
+                        listaSedes = (from sede in db.Sede
+                                      where sede.Bhabilitado == 1
+                                      && sede.Nombre.Contains(oSedeCLS.NombreSede)
+                                      select new SedeCLS
+                                      {
+                                          IdSede = sede.Iidsede,
+                                          NombreSede = sede.Nombre,
+                                          Direccion = sede.Direccion
+                                      }).ToList();
+                        ViewBag.NombreSede = oSedeCLS.NombreSede;
+                    }
                 }
-                else
-                {
-                    listaSedes = (from sede in db.Sede
-                                  where sede.Bhabilitado == 1
-                                  && sede.Nombre.Contains(oSedeCLS.NombreSede)
-                                  select new SedeCLS
-                                  {
-                                      IdSede = sede.Iidsede,
-                                      NombreSede = sede.Nombre,
-                                      Direccion = sede.Direccion
-                                  }).ToList();
-                    ViewBag.NombreSede = oSedeCLS.NombreSede;
-                }
+            }
+            catch(Exception e)
+            {
+                Error = e.Message;
             }
             lista = listaSedes;
             return View(listaSedes);
+        }
+
+        public IActionResult Editar(int id)
+        {
+            SedeCLS oSedeCLS = new SedeCLS();
+            try
+            {                
+                using (BDHospitalContext db = new BDHospitalContext())
+                {
+                    oSedeCLS = (from sede in db.Sede
+                                where sede.Iidsede == id
+                                select new SedeCLS
+                                {
+                                    IdSede = sede.Iidsede,
+                                    NombreSede = sede.Nombre,
+                                    Direccion = sede.Direccion
+                                }).First();
+                }
+            }
+            catch(Exception e)
+            {
+                Error = e.Message;
+            }
+            return View(oSedeCLS);
+        }
+
+        [HttpPost]
+        public IActionResult Guardar(SedeCLS oSedeCLS)
+        {
+            string NombreVista = "";
+
+            try
+            {
+                if (oSedeCLS.IdSede == 0) NombreVista = "Agregar";
+                else NombreVista = "Editar";
+
+                if(!ModelState.IsValid)
+                {
+                    return View(NombreVista, oSedeCLS);
+                }
+                else
+                {
+                    using(BDHospitalContext db = new BDHospitalContext())
+                    {
+                        if(oSedeCLS.IdSede != 0)
+                        {
+                            Sede sede = db.Sede.Where(x => x.Iidsede == oSedeCLS.IdSede).First();
+                            sede.Nombre = oSedeCLS.NombreSede;
+                            sede.Direccion = oSedeCLS.Direccion;
+                            db.SaveChanges();
+                        }
+                        
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                Error = e.Message;
+            }
+            return RedirectToAction("Index");
         }
 
         //Eliminación lógica
         [HttpPost]
         public IActionResult Eliminar(int IdSede)
         {
-            using(BDHospitalContext db = new BDHospitalContext())
+            try
             {
-                Sede oSede = db.Sede.Where(x => x.Iidsede == IdSede).First();
-                oSede.Bhabilitado = 0;//Eliminación lógica
-                db.SaveChanges();
+                using (BDHospitalContext db = new BDHospitalContext())
+                {
+                    Sede oSede = db.Sede.Where(x => x.Iidsede == IdSede).First();
+                    oSede.Bhabilitado = 0;//Eliminación lógica
+                    db.SaveChanges();
+                }
+            }
+            catch(Exception e)
+            {
+                Error = e.Message;
             }
             return RedirectToAction("Index");
         }

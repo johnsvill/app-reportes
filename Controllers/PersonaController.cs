@@ -11,23 +11,33 @@ namespace AppReportes.Controllers
 {
     public class PersonaController : Controller
     {
+        public string Error = "Ha ocurrido un error en tiempo de ejecución, por favor espere";
+
         public void LlenarSexo()
         {
             List<SelectListItem> listaSexo = new List<SelectListItem>();//ComboBox
-            using (BDHospitalContext db = new BDHospitalContext())
+            try
             {
-                listaSexo = (from s in db.Sexo
-                             where s.Bhabilitado == 1
-                             select new SelectListItem
-                             {
-                                 Text = s.Nombre,
-                                 Value = s.Iidsexo.ToString()
-                             }).ToList();
-                listaSexo.Insert(0, new SelectListItem
+                using (BDHospitalContext db = new BDHospitalContext())
                 {
-                    Text = "--Seleccionar--",
-                    Value = ""
-                });
+                    listaSexo = (from s in db.Sexo
+                                 where s.Bhabilitado == 1
+                                 select new SelectListItem
+                                 {
+                                     Text = s.Nombre,
+                                     Value = s.Iidsexo.ToString()
+                                 }).ToList();
+                    listaSexo.Insert(0, new SelectListItem
+                    {
+                        Text = "--Seleccionar--",
+                        Value = ""
+                    });
+                }
+            }
+            catch(Exception e)
+            {
+                Error = e.Message;
+                throw e;
             }
             ViewBag.ListaSexo = listaSexo;
         }
@@ -35,41 +45,49 @@ namespace AppReportes.Controllers
         public IActionResult Index(PersonaCLS personaCLS)
         {
             List<PersonaCLS> listaPersona = new List<PersonaCLS>();
-            LlenarSexo();
-            using (BDHospitalContext db = new BDHospitalContext())
+            try
             {
-                //Validar para que soporte enteros nulos, ? en propiedad int
-                if (personaCLS.IdSexo == null || personaCLS.IdSexo == 0)
+                LlenarSexo();
+                using (BDHospitalContext db = new BDHospitalContext())
                 {
-                    listaPersona = (from persona in db.Persona
-                                    join sexo in db.Sexo
-                                    on persona.Iidsexo equals sexo.Iidsexo
-                                    where persona.Bhabilitado == 1
-                                    select new PersonaCLS
-                                    {
-                                        IdPersona = persona.Iidpersona,
-                                        NombreCompleto = persona.Nombre + " " +
-                                        persona.Appaterno + " " + persona.Apmaterno,
-                                        Email = persona.Email,
-                                        NombreSexo = sexo.Nombre
-                                    }).ToList();
+                    //Validar para que soporte enteros nulos, ? en propiedad int
+                    if (personaCLS.IdSexo == null || personaCLS.IdSexo == 0)
+                    {
+                        listaPersona = (from persona in db.Persona
+                                        join sexo in db.Sexo
+                                        on persona.Iidsexo equals sexo.Iidsexo
+                                        where persona.Bhabilitado == 1
+                                        select new PersonaCLS
+                                        {
+                                            IdPersona = persona.Iidpersona,
+                                            NombreCompleto = persona.Nombre + " " +
+                                            persona.Appaterno + " " + persona.Apmaterno,
+                                            Email = persona.Email,
+                                            NombreSexo = sexo.Nombre
+                                        }).ToList();
+                    }
+                    else
+                    {
+                        listaPersona = (from p in db.Persona
+                                        join s in db.Sexo
+                                        on p.Iidsexo equals s.Iidsexo
+                                        where p.Bhabilitado == 1
+                                        && p.Iidsexo == personaCLS.IdSexo
+                                        select new PersonaCLS
+                                        {
+                                            IdPersona = p.Iidpersona,
+                                            NombreCompleto = p.Nombre + " " +
+                                            p.Appaterno + " " + p.Apmaterno,
+                                            Email = p.Email,
+                                            NombreSexo = s.Nombre
+                                        }).ToList();
+                    }
                 }
-               else
-                {
-                    listaPersona = (from p in db.Persona
-                                    join s in db.Sexo
-                                    on p.Iidsexo equals s.Iidsexo
-                                    where p.Bhabilitado == 1
-                                    && p.Iidsexo == personaCLS.IdSexo
-                                    select new PersonaCLS
-                                    {
-                                        IdPersona = p.Iidpersona,
-                                        NombreCompleto = p.Nombre + " " +
-                                        p.Appaterno + " " + p.Apmaterno,
-                                        Email = p.Email,
-                                        NombreSexo = s.Nombre
-                                    }).ToList();
-                }
+            }
+            catch(Exception e)
+            {
+                Error = e.Message;
+                throw e;
             }
             return View(listaPersona);
         }
@@ -81,37 +99,79 @@ namespace AppReportes.Controllers
         }
 
         [HttpPost]
-        public IActionResult Agregar(PersonaCLS oPersonaCLS)
+        public IActionResult Guardar(PersonaCLS oPersonaCLS)
         {
+            string NombreVista = "";
+            int nveces = 0;
+
+            if (oPersonaCLS.IdPersona == 0) NombreVista = "Agregar";
+            else NombreVista = "Editar";
             LlenarSexo();
             try
             {
-                if(!ModelState.IsValid)
+                using (BDHospitalContext db = new BDHospitalContext())
                 {
-                    using (BDHospitalContext db = new BDHospitalContext())
-                    {
-                        Persona oPersona = new Persona();
-                        oPersona.Nombre = oPersonaCLS.Nombre;
-                        oPersona.Appaterno = oPersonaCLS.ApPaterno;
-                        oPersona.Appaterno = oPersonaCLS.ApMaterno;
-                        oPersona.Telefonocelular = oPersonaCLS.NumeroTelefono;
-                        oPersona.Email = oPersonaCLS.Email;
-                        oPersona.Fechanacimiento = oPersonaCLS.FechaNacimiento;
-                        oPersona.Iidsexo = oPersonaCLS.IdSexo;
-                        oPersona.Bhabilitado = 1;
+                    oPersonaCLS.NombreCompleto = oPersonaCLS.Nombre.ToUpper().Trim() + " " +
+                         oPersonaCLS.ApMaterno.ToUpper().Trim() + " " + oPersonaCLS.ApMaterno.ToUpper().Trim();
 
-                        db.Add(oPersona);
-                        db.SaveChanges();
+                    //Solo en el caso que sea Agregar
+                    if (oPersonaCLS.IdPersona == 0)
+                    {
+                        nveces = db.Persona.Where(p => p.Nombre.ToUpper().Trim() + " " + 
+                        p.Apmaterno.ToUpper().Trim() + " " + p.Apmaterno.ToUpper().Trim() 
+                        == oPersonaCLS.NombreCompleto).Count();
+                    }
+                    if(!ModelState.IsValid || nveces >= 1)
+                    {
+                        if(nveces >= 1)
+                        {
+                            oPersonaCLS.MensajeError = "La persona ya existe";
+                        }
+                        return View(NombreVista, oPersonaCLS);
+                    }
+                    else
+                    {                        
+                            Persona oPersona = new Persona();
+                            oPersona.Nombre = oPersonaCLS.Nombre;
+                            oPersona.Appaterno = oPersonaCLS.ApPaterno;
+                            oPersona.Appaterno = oPersonaCLS.ApMaterno;
+                            oPersona.Telefonocelular = oPersonaCLS.NumeroTelefono;
+                            oPersona.Email = oPersonaCLS.Email;
+                            oPersona.Fechanacimiento = oPersonaCLS.FechaNacimiento;
+                            oPersona.Iidsexo = oPersonaCLS.IdSexo;
+                            oPersona.Bhabilitado = 1;
+
+                            db.Add(oPersona);
+                            db.SaveChanges();                        
                     }
                 }
-                else
+                    
+            }
+            catch(Exception e)
+            {                
+                return View(NombreVista, oPersonaCLS);
+                throw e;
+            }
+            return RedirectToAction("Index");
+        }
+
+        //Eliminacion logica
+        [HttpPost]
+        public IActionResult Eliminar(int IdPersona)
+        {
+            try
+            {
+                using (BDHospitalContext db = new BDHospitalContext())
                 {
-                    return View(oPersonaCLS);
+                    Persona oPersona = db.Persona.Where(x => x.Iidpersona == IdPersona).First();
+                    oPersona.Bhabilitado = 0;
+                    db.SaveChanges();
                 }
             }
             catch(Exception e)
             {
-                return View(oPersonaCLS);
+                Error = e.Message;
+                throw e;
             }
             return RedirectToAction("Index");
         }

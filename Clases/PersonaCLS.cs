@@ -47,5 +47,7 @@ namespace AppReportes.Clases
         [Required(ErrorMessage = "Seleccione una opción")]
         [Display(Name = "Seleccione su sexo")]
         public int? IdSexo { get; set; }
+
+        public string MensajeError { get; set; }
     }
 }

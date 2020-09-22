@@ -1,0 +1,49 @@
+﻿@model AppReportes.Clases.SedeCLS
+
+@{
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Editar</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Guardar" asp-controller="Sede" id="frmEnviar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdSede"  class="control-label"></label>
+                <input asp-for="IdSede" checked class="form-control" readonly/>
+                <span asp-validation-for="IdSede" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NombreSede" class="control-label"></label>
+                <input asp-for="NombreSede" checked class="form-control" />
+                <span asp-validation-for="NombreSede" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Direccion" class="control-label"></label>
+                <input asp-for="Direccion" checked class="form-control" />
+                <span asp-validation-for="Direccion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="button" value="Guardar" class="btn btn-primary" onclick="Abrir()"/>
+                <a asp-action="Index" class="btn btn-danger">Regresar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="~/js/generic.js"></script>
+<script src="~/js/sweetalert.js"></script>
+<script>
+    function Abrir() {
+        mostrarModal().then(res => {
+            if (res.value) {
+                var frmEnviar = document.getElementById("frmEnviar");
+                frmEnviar.submit();
+            }
+        })
+    }
+</script>
