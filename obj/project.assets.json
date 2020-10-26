@@ -1705,7 +1705,7 @@
           }
         }
       },
-      "Syncfusion.Compression.Net.Core/18.2.0.58": {
+      "Syncfusion.Compression.Net.Core/18.2.0.59": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "2.0.0"
@@ -1717,12 +1717,12 @@
           "lib/netstandard2.0/Syncfusion.Compression.Portable.dll": {}
         }
       },
-      "Syncfusion.DocIO.Net.Core/18.2.0.58": {
+      "Syncfusion.DocIO.Net.Core/18.2.0.59": {
         "type": "package",
         "dependencies": {
-          "Syncfusion.Compression.Net.Core": "18.2.0.58",
-          "Syncfusion.Licensing": "18.2.0.58",
-          "Syncfusion.OfficeChart.Net.Core": "18.2.0.58",
+          "Syncfusion.Compression.Net.Core": "18.2.0.59",
+          "Syncfusion.Licensing": "18.2.0.59",
+          "Syncfusion.OfficeChart.Net.Core": "18.2.0.59",
           "System.Text.Encoding.CodePages": "4.4.0"
         },
         "compile": {
@@ -1732,7 +1732,7 @@
           "lib/netstandard2.0/Syncfusion.DocIO.Portable.dll": {}
         }
       },
-      "Syncfusion.Licensing/18.2.0.58": {
+      "Syncfusion.Licensing/18.2.0.59": {
         "type": "package",
         "compile": {
           "lib/netcoreapp3.1/Syncfusion.Licensing.dll": {}
@@ -1741,11 +1741,11 @@
           "lib/netcoreapp3.1/Syncfusion.Licensing.dll": {}
         }
       },
-      "Syncfusion.OfficeChart.Net.Core/18.2.0.58": {
+      "Syncfusion.OfficeChart.Net.Core/18.2.0.59": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "2.0.0",
-          "Syncfusion.Compression.Net.Core": "18.2.0.58"
+          "Syncfusion.Compression.Net.Core": "18.2.0.59"
         },
         "compile": {
           "lib/netstandard2.0/Syncfusion.OfficeChart.Portable.dll": {}
@@ -6025,10 +6025,10 @@
         "version.txt"
       ]
     },
-    "Syncfusion.Compression.Net.Core/18.2.0.58": {
-      "sha512": "buKmJkyJVGS1lP5jnIwIW/3rCPu0xuoSnN1e8wp/xlI2veAmhzWilFTWugYBTzS06SvBqe6U+og/TmzD6xAhrg==",
+    "Syncfusion.Compression.Net.Core/18.2.0.59": {
+      "sha512": "Tym7l3/kHfNpb3aU9p2vRYizEPNEXCNagTh7tyWKkHkY3mJcy3zKMq/nTn+XIn6+8xSHy5t/v5/NhikIgZhzug==",
       "type": "package",
-      "path": "syncfusion.compression.net.core/18.2.0.58",
+      "path": "syncfusion.compression.net.core/18.2.0.59",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6038,14 +6038,14 @@
         "lib/netstandard1.4/Syncfusion.Compression.Portable.xml",
         "lib/netstandard2.0/Syncfusion.Compression.Portable.dll",
         "lib/netstandard2.0/Syncfusion.Compression.Portable.xml",
-        "syncfusion.compression.net.core.18.2.0.58.nupkg.sha512",
+        "syncfusion.compression.net.core.18.2.0.59.nupkg.sha512",
         "syncfusion.compression.net.core.nuspec"
       ]
     },
-    "Syncfusion.DocIO.Net.Core/18.2.0.58": {
-      "sha512": "n3dcLzOnINJVRU4YXsDGmWljXKF7pNgYZHjPLEJKsGohbJ27CtmJeGIipMX7GTEd2NKbr0cD9qlguWDm15kyRw==",
+    "Syncfusion.DocIO.Net.Core/18.2.0.59": {
+      "sha512": "zHygts6Hm6ejB7Nvh40++8e5WDmZHmU+dHNzGnv4kiCr+JbolB9u2yfdQdyvOo8i8oqIqpMs5a1qyxcn1lhL9g==",
       "type": "package",
-      "path": "syncfusion.docio.net.core/18.2.0.58",
+      "path": "syncfusion.docio.net.core/18.2.0.59",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6055,14 +6055,14 @@
         "lib/netstandard1.4/Syncfusion.DocIO.Portable.xml",
         "lib/netstandard2.0/Syncfusion.DocIO.Portable.dll",
         "lib/netstandard2.0/Syncfusion.DocIO.Portable.xml",
-        "syncfusion.docio.net.core.18.2.0.58.nupkg.sha512",
+        "syncfusion.docio.net.core.18.2.0.59.nupkg.sha512",
         "syncfusion.docio.net.core.nuspec"
       ]
     },
-    "Syncfusion.Licensing/18.2.0.58": {
-      "sha512": "Iiwy+PynlUoeXJC0s1D7ro9FByvTUgTCp3h0/520q5r5guurq3SUDKQjzGvS9W/oHWPaISaMvAoem656LJZfjw==",
+    "Syncfusion.Licensing/18.2.0.59": {
+      "sha512": "sfq2Tu9Gbgj+xDtiygdRYLHEsLSiumGhvqUbytkK6oGi89Iu1kSiMJSGXiqX+nXjREgrM7mdDx5PmGg7c4X9jQ==",
       "type": "package",
-      "path": "syncfusion.licensing/18.2.0.58",
+      "path": "syncfusion.licensing/18.2.0.59",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6083,14 +6083,14 @@
         "lib/netstandard2.0/Syncfusion.Licensing.dll",
         "lib/portable-win+net45+wp80+win81+wpa81/Syncfusion.Licensing.dll",
         "lib/uap10.0/Syncfusion.Licensing.dll",
-        "syncfusion.licensing.18.2.0.58.nupkg.sha512",
+        "syncfusion.licensing.18.2.0.59.nupkg.sha512",
         "syncfusion.licensing.nuspec"
       ]
     },
-    "Syncfusion.OfficeChart.Net.Core/18.2.0.58": {
-      "sha512": "mZkdX7y2brjrNDVCB0uMlA33uZwx1W5eHYpnph7jPiFox4wRnqzr6hJISzlXwT/6US+4ayScHlLUw97jaFNvpg==",
+    "Syncfusion.OfficeChart.Net.Core/18.2.0.59": {
+      "sha512": "pYnVbQNYb9ny8kpafkr679cYOAMABBdBe3DrqPtd/yJEAWvvnGiVijwxqZqdl5QkqnL64N0jOC4foUfgHsTq4A==",
       "type": "package",
-      "path": "syncfusion.officechart.net.core/18.2.0.58",
+      "path": "syncfusion.officechart.net.core/18.2.0.59",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6100,7 +6100,7 @@
         "lib/netstandard1.4/Syncfusion.OfficeChart.Portable.xml",
         "lib/netstandard2.0/Syncfusion.OfficeChart.Portable.dll",
         "lib/netstandard2.0/Syncfusion.OfficeChart.Portable.xml",
-        "syncfusion.officechart.net.core.18.2.0.58.nupkg.sha512",
+        "syncfusion.officechart.net.core.18.2.0.59.nupkg.sha512",
         "syncfusion.officechart.net.core.nuspec"
       ]
     },
@@ -10594,7 +10594,7 @@
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.8",
       "Microsoft.Extensions.Identity.Stores >= 3.1.8",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.4",
-      "Syncfusion.DocIO.Net.Core >= 18.2.0.58",
+      "Syncfusion.DocIO.Net.Core >= 18.2.0.59",
       "itext7 >= 7.1.12"
     ]
   },
@@ -10694,7 +10694,7 @@
           },
           "Syncfusion.DocIO.Net.Core": {
             "target": "Package",
-            "version": "[18.2.0.58, )"
+            "version": "[18.2.0.59, )"
           },
           "itext7": {
             "target": "Package",
@@ -10719,7 +10719,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

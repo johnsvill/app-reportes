@@ -923,3 +923,4 @@ C:\Users\johns\Documents\Proyectos C#\app-reportes\bin\Debug\netcoreapp3.1\Syste
 C:\Users\johns\Documents\Proyectos C#\app-reportes\obj\Debug\netcoreapp3.1\Razor\Views\Especialidad\Editar.cshtml.g.cs
 C:\Users\johns\Documents\Proyectos C#\app-reportes\obj\Debug\netcoreapp3.1\Razor\Views\Medicamento\Editar.cshtml.g.cs
 C:\Users\johns\Documents\Proyectos C#\app-reportes\obj\Debug\netcoreapp3.1\Razor\Views\Sede\Editar.cshtml.g.cs
+C:\Users\johns\Documents\Proyectos C#\app-reportes\obj\Debug\netcoreapp3.1\AppReportes.csprojAssemblyReference.cache

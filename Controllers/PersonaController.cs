@@ -115,6 +115,7 @@ namespace AppReportes.Controllers
                          oPersonaCLS.ApMaterno.ToUpper().Trim() + " " + oPersonaCLS.ApMaterno.ToUpper().Trim();
 
                     //Solo en el caso que sea Agregar
+                    //Validar si el nombre completo ya existe
                     if (oPersonaCLS.IdPersona == 0)
                     {
                         nveces = db.Persona.Where(p => p.Nombre.ToUpper().Trim() + " " + 
